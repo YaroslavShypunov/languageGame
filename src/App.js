@@ -3,8 +3,8 @@ import Root from './Root';
 import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import mainTheme from './MuiTheme'
 
-// import store from './reducers';
-// import { Provider } from 'react-redux';
+import store from './reducers';
+import { Provider } from 'react-redux';
 
 function App() {
   useEffect(() => {
@@ -13,9 +13,9 @@ function App() {
     <MuiThemeProvider theme={mainTheme}>
       <CssBaseline />
       {/* <Suspense fallback={<RenderLoaderComponent />}> */}
-        {/* <Provider store={store}> */}
+        <Provider store={store}>
           <Root />
-        {/* </Provider> */}
+        </Provider>
       {/* </Suspense> */}
     </MuiThemeProvider>
   );

@@ -25,7 +25,9 @@ const CharakterComponent = ({ left, top, name, id, found, opacity, newId, active
     const dispatch = useDispatch();
     const handleClick = useCallback(() => {
         if (id === activeCharakter) {
-            dispatch(SET_NEW_CHARACTER(newId))
+            const d = new Date();
+            const startTime = d.getTime();
+            dispatch(SET_NEW_CHARACTER(newId, startTime))
         }
     }, [activeCharakter, dispatch, id, newId])
     return (

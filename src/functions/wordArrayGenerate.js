@@ -13,9 +13,11 @@ export default (word, last) => {
                 time: index === 0 ? time : false,
                 hint: false,
                 left: Math.floor(Math.random() * 100) + 1,
-                opacity: Math.floor(Math.random() * (9 - 5)) + 5,
+                opacity: Math.floor(Math.random() * (9 - 2)) + 2,
                 top: Math.floor(Math.random() * 100) + 1,
                 found: false,
+                word: word,
+                size: word.length
             }))
         }
     }

@@ -4,6 +4,7 @@ const time = d.getTime();
 const initialState = {
     now: 0,
     needWords: 7,
+    style: '',
     fullName: '',
     timeNow: time,
     activeCharakter: 'п',
@@ -70,6 +71,7 @@ const initialState = {
 
 const CHANGE_ACTIVE_CHARACTER = 'CHANGE_ACTIVE_CHARACTER'
 const CHANGE_NAME = 'CHANGE_NAME'
+const CHANGE_STYLE = 'CHANGE_STYLE'
 const SET_HINT_CHARACTER = 'SET_HINT_CHARACTER'
 const SET_ALL_CHARACTERS = 'SET_ALL_CHARACTERS'
 const SET_NEW_ELEMENTS = 'SET_NEW_ELEMENTS'
@@ -79,6 +81,10 @@ const changeActiveCharacter = (payload) => ({
     payload,
 })
 const changeName = (payload) => ({
+    type: CHANGE_NAME,
+    payload,
+})
+const changeStyle = (payload) => ({
     type: CHANGE_NAME,
     payload,
 })
@@ -121,6 +127,11 @@ export default (state = initialState, { type, payload }) => {
                 ...state,
                 fullName: payload
             }
+        case CHANGE_STYLE:
+            return {
+                ...state,
+                style: payload
+            }
         case SET_ALL_CHARACTERS:
             return {
                 ...state,
@@ -141,6 +152,9 @@ export const SET_NEW_CHARACTER = (id, startTime) => (dispatch, getState) => {
 }
 export const SET_NEW_NAME = (name) => (dispatch, getState) => {
     dispatch(changeName(name))
+}
+export const SET_NEW_STYLE = (name) => (dispatch, getState) => {
+    dispatch(changeStyle(name))
 }
 export const SET_HINT = (id) => (dispatch, getState) => {
     dispatch(setHintCharacter(id))

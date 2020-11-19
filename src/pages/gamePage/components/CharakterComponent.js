@@ -6,7 +6,7 @@ import { SET_NEW_CHARACTER } from '../../../reducers/WordReducer';
 const useStyles = (left, top, found, opacity, hint) => makeStyles((theme) => ({
     char: {
         fontSize: 40,
-        color: found ? 'lightgey' : hint ? 'blue' : 'white',
+        color: found ? 'lightgey' : hint ? 'orange' : 'white',
         textShadow: '0 0 10px rgba(0,0,0,0.9)',
         fontWeight: 'bold',
     },

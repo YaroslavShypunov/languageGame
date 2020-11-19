@@ -5,7 +5,7 @@ import GameBoxComponent from './components/GameBoxComponent';
 import FirstPathJpg from '../../backgrounds/path1.jpg'
 import { useDispatch, useSelector } from 'react-redux';
 import BottomCharakterComponent from './components/BottomCharakterComponent';
-import { SET_ALL, SET_HINT, SET_NEW, SET_NEW_NAME } from '../../reducers/WordReducer';
+import { SET_ALL, SET_HINT, SET_NEW, SET_NEW_NAME, SET_NEW_STYLE } from '../../reducers/WordReducer';
 import wordArrayGenerate from '../../functions/wordArrayGenerate';
 import { useHistory } from 'react-router-dom';
 import { WORDS } from '../../constants';
@@ -23,16 +23,18 @@ const GamePage = (props) => {
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
-    const { allCharatkers, charatkers, activeCharakter, fullName, timeNow, needWords, now } = useSelector(state => state.WordReducer);
-   
+    const { allCharatkers, charatkers, activeCharakter, fullName, timeNow, needWords, now, style } = useSelector(state => state.WordReducer);
+  useEffect(() => {
+        const name = prompt("Podaj swoje imię");
+        const newStyle = prompt("Podaj swój styl badawczy");
+        dispatch(SET_NEW_NAME(name || 'data'))
+      dispatch(SET_NEW_STYLE(newStyle || 'data'))
+  }, [dispatch])
     useEffect(() => {
-        // const name = prompt("Podaj swoje imię");
-        // dispatch(SET_NEW_NAME(name || 'data'))
+      
     const showLetter = setInterval(() => {
         const d = new Date();
         const currentTime = d.getTime();
-        console.log({ timeNow})
-        console.log((currentTime - timeNow) / 1000)
         if(((currentTime - timeNow)/1000) > 5){
             dispatch(SET_HINT(activeCharakter)) 
             clearInterval(showLetter)
@@ -45,17 +47,21 @@ const GamePage = (props) => {
     }, [dispatch, timeNow])
     useEffect(() => {
         if (charatkers[charatkers.length - 1].found){
-            console.log('workw')
             if (now >= needWords){
                 const arr = [...allCharatkers, ...charatkers]
                 const results = arr.map((item) => ([
+                    fullName ,
+                    style,
                     item.name,
                     item.left,
                     item.top,
                     item.opacity,
-                    `${item.time / 1000} s`,
+                    `${item.time / 1000}`,
+                    item.hint ? 'Tak' : 'Nie',
+                    item.word,
+                    item.size
                 ]))
-                results.unshift(['Nazwa', 'Pozycja od lewej strony', 'Pozycja od góry', 'Nieprzezroczystość', 'czas']);
+                results.unshift(['Imię','Styl poznawczy', 'Nazwa', 'x', 'y', 'Nieprzezroczystość', 'Czas(s)', 'Podświetlenie','Słowo', 'Rozmiar']);
                 let csvContent = "data:text/csv;charset=utf-8,"
                     + results.map(e => e.join(",")).join("\n");
                 var encodedUri = encodeURI(csvContent);
